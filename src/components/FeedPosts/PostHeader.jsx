@@ -4,7 +4,7 @@ export default function PostHeader({ username, avatar }) {
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
             <Flex alignItems={"center"} gap={2} my={1}>
-                <Avatar src={avatar} alt={"user's profile pic"} size={"sm"}></Avatar>
+                <Avatar src={avatar} alt={"user's profile pic"} size={"sm"} name={username}></Avatar>
                 <Flex fontSize={12} fontWeight={"bold"}>
                     {username}
                     <Box color={"gray.500"}>• 1w</Box>

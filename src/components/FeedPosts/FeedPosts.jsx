@@ -32,7 +32,7 @@ const posts = [
 export default function FeedPosts() {
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000)
+        setTimeout(() => setIsLoading(false), 0)
     }, [])
 
     return (
