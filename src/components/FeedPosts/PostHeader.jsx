@@ -1,12 +1,12 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 
-export default function PostHeader() {
+export default function PostHeader({ username, avatar }) {
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
             <Flex alignItems={"center"} gap={2} my={1}>
-                <Avatar src="/img1.png" alt={"user's profile pic"} size={"sm"}></Avatar>
+                <Avatar src={avatar} alt={"user's profile pic"} size={"sm"}></Avatar>
                 <Flex fontSize={12} fontWeight={"bold"}>
-                    TODO-name
+                    {username}
                     <Box color={"gray.500"}>• 1w</Box>
                 </Flex>
             </Flex>

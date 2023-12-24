@@ -1,6 +1,6 @@
 import { Container, Flex, Box, VStack } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/image'
-import AuthForm from '../components/AuthForm'
+import AuthForm from '../components/AuthForm/AuthForm'
 
 export default function Auth() {
     return (
