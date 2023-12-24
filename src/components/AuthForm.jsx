@@ -18,7 +18,7 @@ export default function AuthForm() {
             alert("Please input!")
             return
         }
-        useNavigate("/")
+        navigate("/")
     }
     return (
         <>
