@@ -1,6 +1,6 @@
 import { Box, Flex, Link } from "@chakra-ui/layout";
 import { Link as RouteLink } from "react-router-dom";
-import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../assets/constant"
+import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../../assets/constant"
 import { Avatar, Button, Tooltip } from "@chakra-ui/react";
 import { AiFillHome } from 'react-icons/ai'
 import { BiLogOut } from "react-icons/bi"
@@ -10,7 +10,7 @@ export default function SideBar() {
     const sideBarItems = [
         {
             icon: <AiFillHome />,
-            text: "",
+            text: "Home",
             link: "/"
         },
         {
