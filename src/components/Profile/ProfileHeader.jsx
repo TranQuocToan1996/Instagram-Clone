@@ -47,7 +47,7 @@ export default function ProfileHeader() {
                 <Text gap={4} alignItems={"center"} fontSize={"sm"} fontWeight={"bold"}>
                     Tr.Dom
                 </Text>
-                <Text gap={4} alignItems={"center"} fontSize={"sm"} fontWeight={"bold"}>
+                <Text gap={4} alignItems={"center"} fontSize={"sm"}>
                     Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo nesciunt consequuntur iure facere quam, animi accusamus quas ducimus ipsa tenetur quae qui doloremque. Tempore architecto cum doloribus ipsum distinctio voluptatem!
                 </Text>
             </VStack >

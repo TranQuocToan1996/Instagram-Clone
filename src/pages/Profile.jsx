@@ -15,7 +15,7 @@ export default function Profile() {
             >
                 <ProfileHeader />
             </Flex>
-            <Flex py={10}
+            <Flex
                 px={{ base: 2, md: 4 }}
                 maxW={"full"}
                 mx={"auto"}
