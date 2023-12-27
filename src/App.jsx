@@ -6,7 +6,7 @@ import PageLayout from "./layout/PageLayout/PageLayout"
 import useAuthStore from "./store/authStore"
 
 function App() {
-  const authUser = useAuthStore(state => state.user)
+  const authUser = useAuthStore(state => state.user) // TODO: 
   return (
     <PageLayout>
       <Routes>

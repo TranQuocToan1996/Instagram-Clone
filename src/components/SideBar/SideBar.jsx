@@ -102,7 +102,6 @@ export default function SideBar() {
                     openDelay={500}
                     display={{ base: "block", md: "none" }}
                 >
-
                     <Flex
                         alignItems={"center"}
                         gap={4}
@@ -112,6 +111,8 @@ export default function SideBar() {
                         w={{ base: 10, md: "full" }}
                         justifyContent={{ base: "center", md: "flex-start" }}
                         mt={"auto"}
+                        onClick={handleLogout}
+                        cursor={"pointer"}
                     >
                         <BiLogOut size={25} />
                         <Button

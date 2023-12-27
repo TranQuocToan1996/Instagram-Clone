@@ -1,9 +1,10 @@
-import { Box, Flex, Spinner } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import SideBar from "../../components/SideBar/SideBar";
 import NavBar from "../../components/NavBar/NavBar";
 import { useLocation } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase";
+import { Spinner } from "@chakra-ui/react";
 
 export default function PageLayout({ children }) {
     const { pathname } = useLocation()

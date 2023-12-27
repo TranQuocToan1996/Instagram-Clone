@@ -61,6 +61,7 @@ export default function SignUp() {
                 </Alert>
             )}
 
+            {/* TODO: enter to submit */}
             <Button w={"full"}
                 colorScheme='blue'
                 size={"sm"}
