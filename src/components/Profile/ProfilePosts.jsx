@@ -16,7 +16,7 @@ export default function ProfilePosts() {
             gap={1} columnGap={1}
         >
             {isLoading && [0, 1, 2, 3, 4, 5].map((_, index) =>
-                <VStack key={index}
+                <VStack key={"ProfilePosts" + index}
                     alignItems={"flex-start"} gap={4}
                 >
                     <Skeleton w={"full"}>
