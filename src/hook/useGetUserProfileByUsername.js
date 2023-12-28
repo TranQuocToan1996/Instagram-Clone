@@ -28,11 +28,13 @@ const useGetUserProfileByUsername = (username) => {
             } catch (error) {
                 showToast("Error", error.message, "error");
             } finally {
-                setIsLoading(false); 
+                setIsLoading(false);
             }
         };
 
+
         getUserProfile();
+
     }, [setUserProfile, username, showToast]);
 
     return { isLoading, userProfile };
