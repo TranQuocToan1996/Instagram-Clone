@@ -1,6 +1,12 @@
 import { Avatar, AvatarGroup, Button, Flex, Text, VStack } from "@chakra-ui/react";
+import useUserProfileStore from "../../store/userProfileStore";
+import useAuthStore from "../../store/authStore";
 
 export default function ProfileHeader() {
+    const { userProfile } = useUserProfileStore()
+    const authUser = useAuthStore((state) => state.user);
+    const visitingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
+    const visitingAnotherProfileAndAuth = authUser && authUser.username !== userProfile.username;
     return (
         <Flex
             gap={{ base: 4, sm: 10 }}
@@ -13,7 +19,7 @@ export default function ProfileHeader() {
                 justifyContent={"flex-start"}
                 mx={"auto"}
             >
-                <Avatar name="profile_user" alt="profile_user" src="./img2.png"></Avatar>
+                <Avatar alt="profile_user" src={userProfile.profilePicURL}></Avatar>
             </AvatarGroup>
             <VStack alignItems={"start"} gap={2} mx={"auto"} flex={1}>
                 <Flex
@@ -22,33 +28,39 @@ export default function ProfileHeader() {
                     alignItems={"center"} w={"full"}
                     justifyContent={{ base: "center", sm: "flex-start" }}
                 >
-                    <Text fontSize={{ base: "sm", md: "lg" }}>user_name</Text>
-                    <Flex alignItems={"center"} alignContent={"center"} gap={4}>
+                    <Text fontSize={{ base: "sm", md: "lg" }}>{userProfile.username}</Text>
+                    {visitingOwnProfileAndAuth && <Flex alignItems={"center"} alignContent={"center"} gap={4}>
                         <Button bg={"white"} color={"black"}
                             size={{ base: "xs", md: "sm" }} _hover={{ bg: "whiteAlpha.800" }}>
                             Edit Profile
                         </Button>
-                    </Flex>
+                    </Flex>}
+                    {visitingAnotherProfileAndAuth && <Flex alignItems={"center"} alignContent={"center"} gap={4}>
+                        <Button bg={"blue.400"} color={"white"}
+                            size={{ base: "xs", md: "sm" }} _hover={{ bg: "blue.600" }}>
+                            Follow
+                        </Button>
+                    </Flex>}
                 </Flex>
                 <Flex direction={"row"} gap={{ base: 2, sm: 4 }} alignItems={"center"} >
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} mr={1} fontWeight={"bold"}>4</Text>
+                        <Text as={"span"} mr={1} fontWeight={"bold"}>{userProfile.posts.length}</Text>
                         Posts
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} mr={1} fontWeight={"bold"}>3</Text>
+                        <Text as={"span"} mr={1} fontWeight={"bold"}>{userProfile.followers.length}</Text>
                         Followers
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} mr={1} fontWeight={"bold"}>2</Text>
+                        <Text as={"span"} mr={1} fontWeight={"bold"}>{userProfile.following.length}</Text>
                         Following
                     </Text>
                 </Flex>
                 <Text gap={4} alignItems={"center"} fontSize={"sm"} fontWeight={"bold"}>
-                    Tr.Dom
+                    {userProfile.fullName}
                 </Text>
                 <Text gap={4} alignItems={"center"} fontSize={"sm"}>
-                    Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo nesciunt consequuntur iure facere quam, animi accusamus quas ducimus ipsa tenetur quae qui doloremque. Tempore architecto cum doloribus ipsum distinctio voluptatem!
+                    {userProfile.bio}
                 </Text>
             </VStack >
         </Flex >
