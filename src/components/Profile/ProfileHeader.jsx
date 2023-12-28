@@ -1,10 +1,13 @@
-import { Avatar, AvatarGroup, Button, Flex, Text, VStack } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Button, Flex, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
+import EditProfile from "./EditProfile"
 
 export default function ProfileHeader() {
     const { userProfile } = useUserProfileStore()
     const authUser = useAuthStore((state) => state.user);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const visitingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
     const visitingAnotherProfileAndAuth = authUser && authUser.username !== userProfile.username;
     return (
@@ -31,13 +34,17 @@ export default function ProfileHeader() {
                     <Text fontSize={{ base: "sm", md: "lg" }}>{userProfile.username}</Text>
                     {visitingOwnProfileAndAuth && <Flex alignItems={"center"} alignContent={"center"} gap={4}>
                         <Button bg={"white"} color={"black"}
-                            size={{ base: "xs", md: "sm" }} _hover={{ bg: "whiteAlpha.800" }}>
+                            size={{ base: "xs", md: "sm" }} _hover={{ bg: "whiteAlpha.800" }}
+                            onClick={onOpen}
+                        >
                             Edit Profile
                         </Button>
                     </Flex>}
                     {visitingAnotherProfileAndAuth && <Flex alignItems={"center"} alignContent={"center"} gap={4}>
                         <Button bg={"blue.400"} color={"white"}
-                            size={{ base: "xs", md: "sm" }} _hover={{ bg: "blue.600" }}>
+                            size={{ base: "xs", md: "sm" }} _hover={{ bg: "blue.600" }}
+                        // TODO: onClick useFollow
+                        >
                             Follow
                         </Button>
                     </Flex>}
@@ -63,6 +70,7 @@ export default function ProfileHeader() {
                     {userProfile.bio}
                 </Text>
             </VStack >
+            {isOpen && <EditProfile isOpen={isOpen} onClose={onClose} />}
         </Flex >
     )
 }
