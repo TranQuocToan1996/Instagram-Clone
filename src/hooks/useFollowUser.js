@@ -14,6 +14,10 @@ const useFollowUser = (userId) => {
     const showToast = useShowToast();
 
     const handleFollowUser = async () => {
+        if (userId === authUser.uid) {
+            showToast("Error", "can not follow your account", "error");
+            return
+        }
         setIsUpdating(true);
         let newAuthUser
         try {

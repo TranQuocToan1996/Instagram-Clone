@@ -1,5 +1,5 @@
 import { Avatar, Button, Flex, Text, Alert, AlertIcon } from "@chakra-ui/react";
-import useLogout from "../../hook/useLogout";
+import useLogout from "../../hooks/useLogout";
 import useAuthStore from "../../store/authStore";
 import { Link } from "react-router-dom";
 import { Link as RouteLink } from "react-router-dom";

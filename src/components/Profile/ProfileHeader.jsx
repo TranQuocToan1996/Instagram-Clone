@@ -2,7 +2,7 @@ import { Avatar, AvatarGroup, Button, Flex, Text, VStack, useDisclosure } from "
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile"
-import useFollowUser from "../../hook/useFollowUser";
+import useFollowUser from "../../hooks/useFollowUser";
 
 export default function ProfileHeader() {
     const { userProfile } = useUserProfileStore()

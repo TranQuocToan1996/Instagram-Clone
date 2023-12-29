@@ -2,7 +2,7 @@ import { Container, Flex, Text, Link, SkeletonCircle, VStack, Skeleton } from "@
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import ProfileTabs from "../components/Profile/ProfileTabs";
 import ProfilePosts from "../components/Profile/ProfilePosts";
-import useGetUserProfileByUserName from "../hook/useGetUserProfileByUsername"
+import useGetUserProfileByUserName from "../hooks/useGetUserProfileByUsername"
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 

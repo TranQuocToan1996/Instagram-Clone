@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputRightElement, Button, Alert, AlertIcon } from "@chakra-ui/react"
 import { useState } from "react"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import useSignUpWithEmailAndPassword from "../../hook/useSignUpWithEmailAndPassword";
+import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
 
 export default function SignUp() {
     const [input, setInput] = useState({
