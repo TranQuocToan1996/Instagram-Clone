@@ -7,9 +7,13 @@ import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import PostFooter from "../FeedPosts/PostFooter";
 import Comment from "../Comment/Comment";
+import useAuthStore from "../../store/authStore";
+import useUserProfileStore from "../../store/userProfileStore";
 
-export default function ProfilePost({ img }) {
+export default function ProfilePost({ post }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const authUser = useAuthStore(state => state.user)
+    const { userProfile } = useUserProfileStore()
     return (
         <>
             <GridItem
@@ -46,7 +50,7 @@ export default function ProfilePost({ img }) {
                     </Flex>
                 </Flex>
 
-                <Image src={img} alt="user uploads" w={"100%"} h={"100%"} objectFit={"cover"}></Image>
+                <Image src={post.imageURL} alt="user uploads" w={"100%"} h={"100%"} objectFit={"cover"}></Image>
             </GridItem >
             <Modal isOpen={isOpen}
                 onClose={onClose}
@@ -73,34 +77,29 @@ export default function ProfilePost({ img }) {
                                 justifyContent={"center"}
                                 alignItems={"center"}
                             >
-                                <Image src={img} alt='profile post' />
+                                <Image src={post.imageURL} alt='profile post' />
                             </Flex>
                             <Flex flex={1} flexDir={"column"} px={10} display={{ base: "none", md: "flex" }}
                             >
                                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                                     <Flex alignItems={"center"} gap={4}>
-                                        <Avatar src={"/profilepic.png"} size={"sm"} name='As a Programmer' />
+                                        <Avatar src={userProfile.profilePicURL} size={"sm"} name='As a Programmer' />
                                         <Text fontWeight={"bold"} fontSize={12}>
-                                            {"post_owner"}
+                                            {userProfile.username}
                                         </Text>
-                                        {/* <Avatar src="/profilepic.png" size={"sm"} name="post_owner"></Avatar>
-                                        <Text fontSize={12} fontWeight={"bold"}>post_owner</Text> */}
                                     </Flex>
-                                    <Button
-                                        size={"sm"}
-                                        bg={"transparent"}
-                                        _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                                        borderRadius={4}
-                                        p={1}
-                                    // onClick={handleDeletePost}
-                                    // isLoading={isDeleting}
-                                    >
-                                        <MdDelete size={20} cursor='pointer' />
-                                    </Button>
-                                    {/* <Box borderRadius={4} p={1}
-                                        _hover={{ bg: "whiteAlpha.300", color: "red.600" }}>
-                                        <MdDelete cursor={"pointer"} size={20}></MdDelete>
-                                    </Box> */}
+                                    {userProfile.uid === authUser.uid &&
+                                        <Button
+                                            size={"sm"}
+                                            bg={"transparent"}
+                                            _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                                            borderRadius={4}
+                                            p={1}
+                                        // onClick={handleDeletePost}
+                                        // isLoading={isDeleting}
+                                        >
+                                            <MdDelete size={20} cursor='pointer' />
+                                        </Button>}
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
                                 <VStack w='full' alignItems={"start"} maxH={"350px"} overflowY={"auto"}>

@@ -15,6 +15,7 @@ export default function SuggestedUser({ user, setUser }) {
                 [...user.followers, authUser]
         })
     }
+    // TODO: click username and image -> profile page
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
             <Flex gap={2} alignItems={"center"} my={2}>

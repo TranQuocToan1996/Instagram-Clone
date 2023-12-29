@@ -1,22 +1,16 @@
-import { Box, Grid, Skeleton, VStack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Grid, Skeleton, VStack, Center } from "@chakra-ui/react";
 import ProfilePost from "./ProfilePost";
-
+import useGetUserPosts from "../../hooks/useGetUserPosts";
 
 export default function ProfilePosts() {
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => setIsLoading(false), 1000)
-    }, [])
-
+    const { isLoading, posts } = useGetUserPosts()
     return (
         <Grid
             templateColumns={{ sm: "repeat(1,1fr)", md: "repeat(3,1fr)" }}
             gap={1} columnGap={1}
         >
-            {isLoading && [0, 1, 2, 3, 4, 5].map((_, index) =>
-                <VStack key={"ProfilePosts" + index}
+            {isLoading && [0, 1, 2].map((_, index) =>
+                <VStack key={index}
                     alignItems={"flex-start"} gap={4}
                 >
                     <Skeleton w={"full"}>
@@ -27,11 +21,13 @@ export default function ProfilePosts() {
                 </VStack>
             )}
 
-            {!isLoading && <>
-                <ProfilePost img="./img2.png" />
-                <ProfilePost img="./img3.png" />
-                <ProfilePost img="./img4.png" />
-            </>}
+            {!isLoading &&
+                posts.map((post) => <ProfilePost key={post.id} post={post} />)
+            }
+            {!isLoading && posts.length === 0 &&
+                <Center color={"red.400"}>No post found</Center>
+            }
+
         </Grid>
     )
 }
