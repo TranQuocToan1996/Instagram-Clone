@@ -7,6 +7,7 @@ import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import PostFooter from "../FeedPosts/PostFooter";
 import Comment from "../Comment/Comment";
+import CommentCaption from "../Comment/CommentCaption";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import { useState } from "react";
@@ -138,75 +139,11 @@ export default function ProfilePost({ post }) {
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
                                 <VStack w='full' alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                                    <Comment
-                                        createdAt="1d ago"
-                                        username="user_comment_1"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="4d ago"
-                                        username="user_comment_2"
-                                        profilePic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
-                                    <Comment
-                                        createdAt="3d ago"
-                                        username="user_comment_2"
-                                        profilepic="./profilepic.png"
-                                        text="good!"
-                                    ></Comment>
+                                    {post.caption && <CommentCaption post={post} />}
+                                    {post.comments.map((comment) => <Comment key={comment.id} comment={comment} ></Comment>)}
                                 </VStack>
                                 <Divider my={4} bg={"gray.800"} />
-                                <PostFooter isProfilePage={true} />
+                                <PostFooter isProfilePage={true} post={post} />
                             </Flex>
                         </Flex>
                     </ModalBody>

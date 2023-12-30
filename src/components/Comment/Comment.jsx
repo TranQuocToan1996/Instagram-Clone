@@ -1,22 +1,44 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Text, SkeletonCircle, Skeleton, Link } from "@chakra-ui/react";
+import useGetUserProfileById from "../../hooks/useGetUserProfileById.js"
+import { Link as RouteLink } from "react-router-dom";
+import { timeToString } from "../../utils/time"
 
-export default function Comment({ username, profilePic, createdAt, text }) {
+export default function Comment({ comment }) {
+    const { isLoading, userProfile } = useGetUserProfileById(comment.createdBy)
+    if (isLoading) return <CommentSkeleton />
     return (
         <Flex gap={4}>
-            <Avatar src={profilePic} name={username} size={"sm"}></Avatar>
+            <Link to={`/${userProfile.username}`} as={RouteLink}>
+                <Avatar src={userProfile.profilePicURL} size={"sm"} />
+            </Link>
             <Flex direction={"column"}>
-                <Flex gap={2}>
-                    <Text fontWeight={"bold"} fontSize={12}>
-                        {username}
-                    </Text>
+                <Flex gap={2} alignItems={"center"}>
+                    <Link to={`/${userProfile.username}`} as={RouteLink}>
+                        <Text fontWeight={"bold"} fontSize={12}>
+                            {userProfile.username}
+                        </Text>
+                    </Link>
                     <Text fontSize={14}>
-                        {text}
+                        {comment.comment}
                     </Text>
                 </Flex>
                 <Text fontSize={12} color={"gray"}>
-                    {createdAt}
+                    {timeToString(comment.createdAt)}
                 </Text>
             </Flex>
         </Flex>
     )
 }
+
+
+const CommentSkeleton = () => {
+    return (
+        <Flex gap={4} w={"full"} alignItems={"center"}>
+            <SkeletonCircle h={10} w='10' />
+            <Flex gap={1} flexDir={"column"}>
+                <Skeleton height={2} width={100} />
+                <Skeleton height={2} width={50} />
+            </Flex>
+        </Flex>
+    );
+};

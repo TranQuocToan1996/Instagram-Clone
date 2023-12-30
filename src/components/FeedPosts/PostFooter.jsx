@@ -1,12 +1,16 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../assets/constants";
+import usePostComment from "../../hooks/usePostComment"
+import useAuthStore from "../../store/authStore";
 
-export default function PostFooter({ username, isProfilePage }) {
+export default function PostFooter({ post, username, isProfilePage }) {
     const [liked, setLiked] = useState(false)
     const [likes, setLikes] = useState(0)
     const [comment, setComment] = useState("")
-    const [isCommenting, setIsCommenting] = useState(false)
+    const { isCommenting, handlePostComment } = usePostComment()
+    const authUser = useAuthStore(state => state.user)
+    const commentRef = useRef(null)
 
     const handleLiked = () => {
         if (!liked) {
@@ -18,14 +22,18 @@ export default function PostFooter({ username, isProfilePage }) {
         }
     }
 
-    const handleSubmitComment = () => { setIsCommenting(false) }
+    const handleSubmitComment = async () => {
+        await handlePostComment(post.id, comment)
+        setComment("")
+    }
+    if (!authUser) return null
     return (
         <Box mb={10} marginTop={"auto "}>
             <Flex alignItems={"center"} gap={4} w={"full"} mb={2} my={4}>
                 <Box onClick={handleLiked} cursor={"pointer"}>
                     {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
                 </Box>
-                <Box cursor={"pointer"}>
+                <Box cursor={"pointer"} onClick={() => commentRef.current.focus()}>
                     <CommentLogo />
                 </Box>
             </Flex>
@@ -49,7 +57,7 @@ export default function PostFooter({ username, isProfilePage }) {
                         fontSize={14}
                         onChange={(e) => setComment(e.target.value)}
                         value={comment}
-                    // ref={commentRef}
+                        ref={commentRef}
                     />
                     <InputRightElement>
                         <Button
