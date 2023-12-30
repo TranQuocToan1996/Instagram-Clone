@@ -1,6 +1,6 @@
 import {
     Flex, GridItem, Image, Text, useDisclosure, Modal, ModalOverlay,
-    ModalContent, ModalCloseButton, ModalBody, Button, Avatar, Divider, VStack
+    ModalContent, ModalCloseButton, ModalBody, Button, Avatar, Divider, VStack, useToast
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
@@ -9,11 +9,46 @@ import PostFooter from "../FeedPosts/PostFooter";
 import Comment from "../Comment/Comment";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
+import { useState } from "react";
+import { deleteObject, ref } from "firebase/storage";
+import { firestore, storage } from "../../firebase/firebase";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import usePostStore from "../../store/postStore";
 
 export default function ProfilePost({ post }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const authUser = useAuthStore(state => state.user)
     const { userProfile } = useUserProfileStore()
+    const showToast = useToast()
+    const [isDeleting, setIsDeleting] = useState(false)
+    const deletePost = usePostStore((state) => state.deletePost);
+    const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
+
+    const handleDeletePost = async () => {
+        if (isDeleting) return;
+        if (!window.confirm("Are you sure you want to delete this post?")) return;
+
+        try {
+            setIsDeleting(true);
+            const imageRef = ref(storage, `posts/${post.id}`);
+            await deleteObject(imageRef);
+            const userRef = doc(firestore, "users", post.createdBy);
+            await deleteDoc(doc(firestore, "posts", post.id));
+
+            await updateDoc(userRef, {
+                posts: arrayRemove(post.id),
+            });
+
+            deletePost(post.id);
+            decrementPostsCount(post.id);
+            showToast("Success", "Post deleted successfully", "success");
+        } catch (error) {
+            showToast("Error", error.message, "error");
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <>
             <GridItem
@@ -88,15 +123,15 @@ export default function ProfilePost({ post }) {
                                             {userProfile.username}
                                         </Text>
                                     </Flex>
-                                    {userProfile.uid === authUser.uid &&
+                                    {authUser && userProfile.uid === authUser.uid &&
                                         <Button
                                             size={"sm"}
                                             bg={"transparent"}
                                             _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
                                             borderRadius={4}
                                             p={1}
-                                        // onClick={handleDeletePost}
-                                        // isLoading={isDeleting}
+                                            onClick={handleDeletePost}
+                                            isLoading={isDeleting}
                                         >
                                             <MdDelete size={20} cursor='pointer' />
                                         </Button>}
