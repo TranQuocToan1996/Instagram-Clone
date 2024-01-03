@@ -1,39 +1,11 @@
 import { Container, VStack, Flex, SkeletonCircle, Skeleton, Box, Text } from "@chakra-ui/react";
 import FeedPost from "./FeedPost";
-import { useEffect, useState } from "react";
+import useGetFeedPosts from "../../hooks/useGetFeedPosts"
 
-const posts = [
-    {
-        id: 1,
-        username: "alice",
-        avatar: "./img1.png",
-        img: "./img1.png"
-    },
-    {
-        id: 2,
-        username: "bob",
-        avatar: "./img2.png",
-        img: "./img2.png"
-    },
-    {
-        id: 2,
-        username: "peter",
-        avatar: "./img3.png",
-        img: "./img3.png"
-    },
-    {
-        id: 4,
-        username: "john",
-        avatar: "./img4.png",
-        img: "./img4.png"
-    },
-]
+
 
 export default function FeedPosts() {
-    const [isLoading, setIsLoading] = useState(true)
-    useEffect(() => {
-        setTimeout(() => setIsLoading(false), 0)
-    }, [])
+    const { isLoading, posts } = useGetFeedPosts()
 
     return (
         <Container maxW={"container.sm"} py={10} px={2}>
@@ -59,7 +31,7 @@ export default function FeedPosts() {
                     <Text fontSize={"md"} color={"red.400"}>
                         Dayuum. Looks like you don&apos;t have any friends.
                     </Text>
-                    <Text color={"red.400"}>Stop coding and go make some!!</Text>
+                    <Text color={"red.400"}>Following some!!</Text>
                 </>
             )}
         </Container>
